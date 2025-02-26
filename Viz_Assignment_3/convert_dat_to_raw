@@ -1,5 +1,5 @@
 # Haved used google collab for the conversion process
 given_dat_file = open('/content/stagbeetle832x832x494.dat','rb')
-data = given_dat_file.read()
+read_data = given_dat_file.read()
 converted_raw_file = open('HR.raw','wb')
-converted_raw_file.write(data)
+converted_raw_file.write(read_data)
