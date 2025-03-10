@@ -1,5 +1,11 @@
-# Haved used google collab for the conversion process
-given_dat_file = open('/content/stagbeetle832x832x494.dat','rb')
-read_data = given_dat_file.read()
-converted_raw_file = open('HR.raw','wb')
-converted_raw_file.write(read_data)
+# Here I had used Google Collab to convert .dat file to .raw filr
+input_path = "/content/stagbeetle832x832x494.dat" // This is the path in collab where we uplod our original file.
+output_path = "/content/convert.raw"
+
+# Reading our binary data from the given file
+with open(input_path, "rb") as dat_file:
+    raw_data = dat_file.read()
+
+# Writing the binary data to the new convert.raw file
+with open(output_path, "wb") as raw_file:
+    raw_file.write(raw_data)
