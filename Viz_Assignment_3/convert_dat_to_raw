@@ -2,5 +2,5 @@
 given_src_file = open('/content/stagbeetle832x832x494.dat', 'rb')  #Path in Collab where file is stored
 file_data = given_src_file.read()  
 
-destination_file = open('HR.raw', 'wb') # Our op file
-destination_file.write(file_data)  
+obt_destination_file = open('HR.raw', 'wb') # Our op file
+obt_destination_file.write(file_data)  
