@@ -1,1 +1,6 @@
 # Here I had used Google Collab to convert .dat file to .raw file
+given_src_file = open('/content/stagbeetle832x832x494.dat', 'rb')  #Path in Collab where file is stored
+file_content = given_src_file.read()  
+
+destination_file = open('HR.raw', 'wb') # Our op file
+destination_file.write(file_content)  
