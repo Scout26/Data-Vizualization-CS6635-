@@ -26,55 +26,41 @@ vecs = vecs.transpose(1, 0, 2)  # needed otherwise vectors don't match with plot
 
 
 # Bilinear_interpolation Function creation
-def bilinear_interpolation(x, y, grid):
+def bi(x, y, grid):
     x0, y0 = int(x), int(y)
     x1, y1 = x0 + 1, y0 + 1
-
     # grid size adjustment 
     x0 = max(0, min(x0, 19))
     x1 = max(0, min(x1, 19))
     y0 = max(0, min(y0, 19))
     y1 = max(0, min(y1, 19))
-
     #print(x0,y0,x1,y1)
-
     # Fetching the neighbour vector
     Q11 = grid[x0, y0]
     Q21 = grid[x1, y0]
     Q12 = grid[x0, y1]
     Q22 = grid[x1, y1]
-
     # Bilinear interpolation Step
     dx = x - x0
     dy = y - y0
-    interpolated = (Q11 * (1 - dx) * (1 - dy) +
-                   Q21 * dx * (1 - dy) +
-                   Q12 * (1 - dx) * dy +
-                   Q22 * dx * dy)
-
+    interpolated = (Q11 * (1 - dx) * (1 - dy) + Q21 * dx * (1 - dy) + Q12 * (1 - dx) * dy + Q22 * dx * dy)
     return interpolated
 
-
 # We also need a function to trace streamline
-def trace_streamline(start_point, grid, time_step, steps):
-    x, y = start_point
-    streamline = [start_point]
+def tc(start, grid, timestep, steps):
+    x, y = start
+    streamline = [start]
 
     for _ in range(steps):
       # For each point we also need a interpolation vector
-        vector = bilinear_interpolation(x, y, grid)
-
-
+        vector = bi(x, y, grid)
         # Updating the value of x and y
         x += vector[0] * time_step
         y += vector[1] * time_step
-
         #print("Value after updation",x,y)
-
         # For each point to the grid we bound them
         x = max(0, min(x, 19))
         y = max(0, min(y, 19))
-
         streamline.append((x, y))
 
         # Let's say if boundary is reached then we break the loop
