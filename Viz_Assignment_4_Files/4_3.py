@@ -50,7 +50,6 @@ def bi(x, y, grid):
 def tc(start, grid, time_step, steps):
     x, y = start
     streamline = [start]
-
     for _ in range(steps):
       # For each point we also need a interpolation vector
         vector = bi(x, y, grid)
@@ -68,29 +67,21 @@ def tc(start, grid, time_step, steps):
             break
 
     return np.array(streamline)
-
-
 # Now for each point in x and y            
 xx, yy = np.meshgrid(np.arange(0, 20), np.arange(0, 20))
-
 # Function to plot streamlines with given parameters
 def plot_streamlines(time_step, steps, title):
     streamlines = [tc(point, vecs, time_step, steps) for point in seed_points]
-
     plt.figure()
     plt.plot(xx, yy, marker='.', color='b', linestyle='none')
     plt.quiver(xx, yy, vecs[:, :, 0], vecs[:, :, 1], width=0.001)
-
-    
     # This step will plot vectors
     plt.scatter(seed_points[:, 0], seed_points[:, 1], color='red', label='Seed Points')
     for streamline in streamlines:
         plt.plot(streamline[:, 0], streamline[:, 1], color='green', marker='o', markersize=3)
-
     plt.title(title)
     plt.legend()
     plt.show()
-
 # Plot the graph for the given points
 plot_streamlines(time_step=0.15, steps=16, title="Step Size 0.15, Steps 16")
 plot_streamlines(time_step=0.075, steps=32, title="Step Size 0.075, Steps 32")
