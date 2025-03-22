@@ -16,7 +16,7 @@ import matplotlib.pyplot as plt
 np.random.seed(42)
 
 # Question mentions to generate seed points within the range [0, 20]
-seed_points = np.random.randint(0, 20, size=(15, 2))
+sp = np.random.randint(0, 20, size=(15, 2))
 
 # Get data
 vecs = np.reshape(np.fromfile("wind_vectors.raw"), (20, 20, 2))
@@ -26,25 +26,21 @@ vecs = vecs.transpose(1, 0, 2)  # needed otherwise vectors don't match with plot
 def bi(x, y, grid):
     x0, y0 = int(x), int(y)
     x1, y1 = x0 + 1, y0 + 1
-
     # grid size adjustment 
     x0 = max(0, min(x0, 19))
     x1 = max(0, min(x1, 19))
     y0 = max(0, min(y0, 19))
     y1 = max(0, min(y1, 19))
-
     # Fetching the neighbour vector
     Q11 = grid[x0, y0]
     Q21 = grid[x1, y0]
     Q12 = grid[x0, y1]
     Q22 = grid[x1, y1]
-
     # Bilinear interpolation Step
     dx = x - x0
     dy = y - y0
     interpolated = (Q11 * (1 - dx) * (1 - dy) +Q21 * dx * (1 - dy) + Q12 * (1 - dx) * dy + Q22 * dx * dy)
-    return interpolated
-
+    return interpolated # returns the final value obtained
 # We also need a function to trace streamline
 def tc(start, grid, timestep, steps):
     x, y = start
@@ -56,8 +52,7 @@ def tc(start, grid, timestep, steps):
         # Updating the value of x and y
         x += vector[0] * timestep
         y += vector[1] * timestep
-
-        # Bound the points to the grid
+        # For each point to the grid we bound them
         x = max(0, min(x, 19))
         y = max(0, min(y, 19))
         streamline.append((x, y))
@@ -70,7 +65,7 @@ def tc(start, grid, timestep, steps):
 # Now for each point
 timestep = 0.3
 steps = 8
-streamlines = [tc(point, vecs, timestep, steps) for point in seed_points]
+line = [tc(point, vecs, timestep, steps) for point in sp]
 xx, yy = np.meshgrid(np.arange(0, 20), np.arange(0, 20))
 
 # This step will plot vectors
@@ -78,8 +73,8 @@ plt.plot(xx, yy, marker='.', color='b', linestyle='none')
 plt.quiver(xx, yy, vecs[:, :, 0], vecs[:, :, 1], width=0.001)
 
 # Displaying the result on the graph
-plt.scatter(seed_points[:, 0], seed_points[:, 1], color='red', label='Seed Points')
-for streamline in streamlines:
-    plt.plot(streamline[:, 0], streamline[:, 1], color='green', marker='o', markersize=3)
+plt.scatter(sp[:, 0], sp[:, 1], color='red', label='Seed Points')
+for line in line:
+    plt.plot(line[:, 0], line[:, 1], color='green', marker='o', markersize=3)
 plt.legend()
 plt.show()
