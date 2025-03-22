@@ -12,10 +12,10 @@ Original file is located at
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Set the random seed for reproducibility
+# Here generating random numbers using numpy library in python
 np.random.seed(42)
 
-# Generate 15 random seed points within the range [0, 19] in both dimensions
+# Question mentions to generate 15 random seed points within the range [0, 19]
 seed_points = np.random.randint(0, 20, size=(15, 2))
 
 # Get data
@@ -30,7 +30,7 @@ xx, yy = np.meshgrid(np.arange(0, 20), np.arange(0, 20))
 plt.plot(xx, yy, marker='.', color='b', linestyle='none')
 plt.quiver(xx, yy, vecs_flat[:,0], vecs_flat[:,1], width=0.001)
 
-# Plot the seed points
+# This part does the plotting of the seed points with graph label for better understanding
 plt.scatter(seed_points[:, 0], seed_points[:, 1], color='red', label='Seed Points')
 plt.legend()
 
