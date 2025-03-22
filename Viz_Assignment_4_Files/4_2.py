@@ -31,6 +31,7 @@ def bi(x, y, grid):
     x1 = max(0, min(x1, 19))
     y0 = max(0, min(y0, 19))
     y1 = max(0, min(y1, 19))
+    #print(x0,y0,x1,y1)
     # Fetching the neighbour vector
     Q11 = grid[x0, y0]
     Q21 = grid[x1, y0]
@@ -39,6 +40,7 @@ def bi(x, y, grid):
     # Bilinear interpolation Step
     dx = x - x0
     dy = y - y0
+    #print(dx,dy)
     interpolated = (Q11 * (1 - dx) * (1 - dy) +Q21 * dx * (1 - dy) + Q12 * (1 - dx) * dy + Q22 * dx * dy)
     return interpolated # returns the final value obtained
 # We also need a function to trace streamline
@@ -52,6 +54,7 @@ def tc(start, grid, timestep, steps):
         # Updating the value of x and y
         x += vector[0] * timestep
         y += vector[1] * timestep
+        #print("Value after updation",x,y)
         # For each point to the grid we bound them
         x = max(0, min(x, 19))
         y = max(0, min(y, 19))
