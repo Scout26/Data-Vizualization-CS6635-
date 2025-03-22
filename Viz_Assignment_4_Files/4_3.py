@@ -55,8 +55,8 @@ def tc(start, grid, timestep, steps):
       # For each point we also need a interpolation vector
         vector = bi(x, y, grid)
         # Updating the value of x and y
-        x += vector[0] * time_step
-        y += vector[1] * time_step
+        x += vector[0] * timestep
+        y += vector[1] * timestep
         #print("Value after updation",x,y)
         # For each point to the grid we bound them
         x = max(0, min(x, 19))
@@ -74,8 +74,8 @@ def tc(start, grid, timestep, steps):
 xx, yy = np.meshgrid(np.arange(0, 20), np.arange(0, 20))
 
 # Function to plot streamlines with given parameters
-def plot_streamlines(time_step, steps, title):
-    streamlines = [trace_streamline(point, vecs, time_step, steps) for point in seed_points]
+def pc(time_step, steps, title):
+    streamlines = [tc(point, vecs, timestep, steps) for point in seed_points]
 
     plt.figure()
     plt.plot(xx, yy, marker='.', color='b', linestyle='none')
